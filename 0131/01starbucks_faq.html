@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>제이쿼리 문서객체모델(dom)-탐색메서드를 활용한 스타벅스 자주하는 질문</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" type="text/css">
+  <link rel="stylesheet" href="./css/faq.css" type="text/css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  <script>
+    $(()=>{
+      let q = $('.faq > dt');
+
+      //1.첫번째 질문에 서식을 적용하고
+      q.first().addClass('act01');
+
+      //답변이 보이도록 한다.
+      q.first().next().show();
+
+      // 첫번째 질문에 있는 화살표 방향 반대로
+      q.first().find('i.fa-solid').addClass('act02');
+
+      // 사용자가 선택한 질문에 해당하는 서식을 적용
+      q.click(function(){
+        // $(this).toggleClass('act01');// 제목서식적용
+        // $(this).find('i.fa-solid').toggleClass('act02');//화살표방향
+        // $(this).next().slideToggle();//답변나오게하기
+
+        $(this).addClass('act01').siblings().removeClass('act01');
+        
+        //내가선택한건 dt지만 서식제거는i기떄문에 부모의 형제들을 선택한다음에 그안에있는 자손을 다시 선택해서 서식을 제거
+        //선택하지 않은걸 다시 돌리는방법
+        $(this).find('i.fa-solid').addClass('act02').parent().siblings().find('i.fa-solid').removeClass('act02');
+        //스타벅스는 toggleClass로 한것.(자기자신만 바꾸는것)
+
+        $(this).next().slideDown().siblings('dd').slideUp();
+      });
+    });
+  </script>
+</head>
+<body>
+  <section>
+    <h2>자주 하는 질문</h2>
+    <p><span class="t_color01">e-Gift Card</span>에 대한 궁금점이 많으신가요? 고객님의 문의사항에 대한 답변을 빠르게 찾으실 수 있습니다.</p>
+    <fieldset>
+      <legend>검색</legend>
+      <input type="search" id="search">
+      <input type="submit"  value="검색">
+    </fieldset>
+
+    <dl class="faq">
+      <dt>[제휴혜택] 스마일클럽 스타벅스 음료 사이즈업 혜택은 어떻게 이용하나요?<i class="fa-solid fa-angle-down"></i></dt>
+      <dd>스마일클럽 회원이 가입한 채널에서 확인된 멤버십 바코드를 사용하여 스타벅스 매장에서 제조음료 주문 시 매장 파트너에게 제시해 주시면 월 2회 Size Up 혜택 사용이 가능합니다.<br>
+        ※ 자세한 사항은 스마일클럽 고객센터로 문의 부탁드립니다.
+      </dd>
+
+      <dt>[제휴혜택] 스마일클럽 스타벅스 음료 사이즈업 혜택은 통신사 제휴혜택과 중복 적용 가능한가요?<i class="fa-solid fa-angle-down"></i></dt>
+      <dd>스마일클럽 음료 사이즈업 혜택은 통신사 제휴혜택과 중복 적용이 불가합니다.</dd>
+
+      <dt>스타벅스 현대카드는 무엇인가요?<i class="fa-solid fa-angle-down"></i></dt>
+      <dd>스타벅스와 현대카드가 제휴하여 출시한 신용카드로, 전월 실적 기준 충족 시 당월 누적 신용카드 이용금액 3만원 당 (스타벅스 카드 충전금액 포함) 스타벅스 별 1개가 연동된 계정으로 적립되는 신용카드입니다. 카드 신청 및 상품에 대한 상세 안내는 현대카드 홈페이지(www.hyundaicard.com) 또는 스타벅스 홈페이지 배너 및 상세내용에 대한 별도 안내페이지를 통해 확인 부탁 드립니다.<br>
+      * 스타벅스 현대카드 고객센터 : 1522-4800</dd>
+
+      <dt>[단체 및 기업구매] 아메리카노 쿠폰같은 것도 대량구매가 가능한가요?<i class="fa-solid fa-angle-down"></i></dt>
+      <dd>아메리카노 쿠폰과 같은 물품형 상품권은 스타벅스에서 대량 판매를 하지 않습니다.<br>
+        구매를 원하시는 경우, 포털사이트에서 해당 품목을 판매하는 업체와 직접 연락하셔야 합니다.<br>
+        스타벅스 카드 또는 e-Gift card(금액권) 구매를 원하시는 경우, 아래 이메일로 문의하시기 바랍니다.<br>
+          e-mail: starbucksb2b@starbucks.co.kr
+      </dd>
+
+      <dt>[모바일상품권] 상품권 가져오기를 하니 유효기간 만료 또는 이미 사용된 상품권이라고 합니다.<i class="fa-solid fa-angle-down"></i></dt>
+      <dd>스타벅스 APP은 모바일 상품권을 저장하거나 관리하지 않습니다.<br>
+        결제 시에는 ‘상품권 가져오기’로 불러온 바코드 정보로 제휴사 서버와 통신하여 상품권의 유효성을 체크, 결제한 후 정보를 파기합니다.<br> 따라서 상품권 정보가 저장되지 않으며 결제 화면에서 나가면 사라집니다.<br>
+        유효기간 만료 또는 이미 사용된 상품권이라고 알림이 나오는 경우는 상품권 발행처로 문의 바랍니다.
+      </dd>
+
+      <dt>[모바일상품권] 상품권 가져오기를 한 후 적용하지 않았는데 사용 처리되는 것은 아닌가요?<i class="fa-solid fa-angle-down"></i></dt>
+      <dd>상품권 가져오기는 바코드 정보를 임시로 불러와 상품권의 유효성을 체크하고 결제하는 기능입니다.
+        따라서 결제 시 적용되지 않은 상품권은 추후 APP과 매장에서 그대로 사용 가능합니다.</dd>
+
+      <dt>[모바일상품권] 상품권 가져오기를 하면 스타벅스 APP에 저장되나요?<i class="fa-solid fa-angle-down"></i></dt>
+      <dd>스타벅스 APP에는 모바일 상품권을 저장하거나 관리하는 기능은 없습니다.</dd>
+
+      <dt>[모바일상품권] 스타벅스 APP에서 모바일 상품권을 어떻게 사용하나요?<i class="fa-solid fa-angle-down"></i></dt>
+      <dd>스타벅스 APP의 사이렌 오더(선물하기 제외)와 홀케이크 예약시에 결제수단으로 사용할 수 있습니다. 이미지로 저장해 놓은 상품권을 사진함에서 불러오거나, 바코드 하단 번호를 직접 입력할 수 있습니다. 후면 카메라로 바코드를 인식하는 것도 가능합니다. 여러 제휴사 상품권을 함께 사용할 수 있으며 주문 한 건당 3개까지 적용 가능합니다.</dd>
+
+      <dt>[모바일상품권] 상품권 이미지 불러오기 시 인식이 잘 되지 않습니다.<i class="fa-solid fa-angle-down"></i></dt>
+      <dd>스크린 캡처나 촬영본이 아닌, 제휴사에서 제공하는 모바일 상품권의 원본 저장 이미지를 불러와야 합니다.
+        그래도 인식이 잘 되지 않는 경우, ‘상품권 번호 입력하기’에서 바코드 하단의 번호를 직접 입력해주세요.</dd>
+
+      <dt>[모바일상품권] 스타벅스에서 사용 가능한 모바일 상품권의 종류는 어떤 것이 있나요?<i class="fa-solid fa-angle-down"></i></dt>
+      <dd>스타벅스 APP과 매장에서 카카오 선물하기, 기프티콘, 기프티쇼, 머니콘, 아이넘버, 쓱페이콘 상품권의 사용이 가능합니다.<br>
+        단, e카드교환권(금액형 상품권)은 스타벅스 APP에 등록 후 사용 가능합니다.(매장 즉시 사용 불가)
+      </dd>
+    </dl>
+  </section>
+</body>
+</html>
