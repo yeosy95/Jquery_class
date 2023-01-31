@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>실습과제 - 쿠팡홈페이지 배너 작성</title>
+  <style>
+    *{margin:0px;padding:0px;}
+    ul,li,ol{list-style-type: none;}
+    a{text-decoration: none;}
+    .banner{
+      position:fixed;
+      width: 100%;height: 450px;
+      top:50px;
+    }
+    .banner div > .banner_img {
+      position: relative;
+      width:100%;
+    }
+    .banner div > .banner_img li{
+      position: absolute;
+    }
+
+    .banner nav{
+      position: absolute;
+      right: 50px;top:5%;
+      z-index: 10;  
+    }
+    .banner nav > .tab_menu{box-sizing: border-box;}
+    .banner nav a{display: block;}
+    .banner nav a:hover{border: solid 2px rgba(100, 100, 255, .8);}
+    .tab{border: solid 2px rgba(100, 100, 255, .8);}
+
+    .banner > .banner_img > li:first-of-type img{z-index: 6;}
+    .banner > .banner_img > li:nth-of-type(2)img{z-index: 5;}
+    .banner > .banner_img > li:nth-of-type(3)img{z-index: 4;}
+    .banner > .banner_img > li:nth-of-type(4)img{z-index: 3;}
+    .banner > .banner_img > li:nth-of-type(5)img{z-index: 2;}
+    .banner > .banner_img > li:last-of-type img{z-index:1;}
+    
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  <script>
+    $(()=>{
+      //텍스트에 마우스오버시 href속성안에 값을 가져와서 변수에 담는다.
+      $('.banner nav li a').mouseenter(function(){
+      let m_link = $(this).attr('href'); //href속성값을 변수에 담는다.
+      console.log(m_link); //테스트해본다
+      $('.banner div img').attr('src',m_link); //이미지 src속성에 대입한다.
+});
+    
+    let n = 0;
+      //3. 함수만들기 bannerSlide
+      function bannerSlide(){
+        let tab = $('.tab_menu li');
+        let banner =  $('.banner div img');
+        
+        banner.stop().hide();//모든이미지 숨기기.
+          if(n == 5){ //마지막 이미지라면
+            n = 0;    //처음이미지가 나오게 0을 대입
+          }else{
+            n++; //1씩 증가하여 다음이미지가 나오게 한다.
+          }
+          $('.banner div img').eq(n).stop().show();//다음번호에 맞는 이미지가 나옴.
+          
+          if(banner.hasClass('tab') == false){
+            tab.eq(n).addClass('tab');
+          }else {
+            tab.removeClass('tab');
+          }
+      } 
+
+      // 시간객체 
+      let Timer = setInterval(bannerSlide, 3000);
+
+      $('.banner div img').mouseenter(()=>{
+        clearInterval(Timer);
+      });
+      $('.banner div img').mouseleave(()=>{
+        clearInterval(Timer);
+        Timer = setInterval(bannerSlide, 2500);
+      });
+    });
+  </script>
+</head>
+<body>
+  <h2>쿠팡 실습과제</h2>
+
+  <article class="banner">
+    <div>
+      <ul class="banner_img">
+        <li><img src="./img/banner01.jpg" alt="큰사진"></li>
+        <li><img src="./img/banner02.jpg" alt="배너2"></li>
+        <li><img src="./img/banner03.jpg" alt="배너3"></li>
+        <li><img src="./img/banner04.png" alt="배너4"></li>
+        <li><img src="./img/banner05.jpg" alt="배너5"></li>
+        <li><img src="./img/banner06.jpg" alt="배너5"></li>
+      </ul>
+      
+    </div>
+    <nav>
+      <ul class="tab_menu">
+        <li><a href="./img/banner01.jpg" title="배너"><img src="./img/tab01.png" alt="신년빅세일"></a></li>
+        <li><a href="./img/banner02.jpg" title="배너"><img src="./img/tab02.jpg" alt="인기간식"></a></li>
+        <li><a href="./img/banner03.jpg" title="배너"><img src="./img/tab03.png" alt="설연휴끝 특가"></a></li>
+        <li><a href="./img/banner04.png" title="배너"><img src="./img/tab04.png" alt="생필품 쟁여두기"></a></li>
+        <li><a href="./img/banner05.jpg" title="배너"><img src="./img/tab05.jpg" alt="프렌치카페"></a></li>
+        <li><a href="./img/banner06.jpg" title="배너"><img src="./img/tab06.jpg" alt="바닐라코"></a></li>
+      </ul>
+    </nav>
+  </article>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>실습예제</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  <style>
+    *{margin:0px;padding:0px;}
+    ul,ol,li{list-style: none;}
+    .b_wrap{
+      position: relative;
+      width:340px;
+      height: 378px;
+      border: 3px solid #333;
+      margin:0 auto;
+      overflow: hidden;
+    }
+    .banner01{
+      display: flex;
+      position: relative;
+    }
+    .con_btn{
+      display: flex;
+      justify-content: center;
+      position: absolute;
+      bottom:10px;left: 35%;
+    }
+    .con_btn > li{
+      width:15px;height: 15px;
+      border-radius: 50%;
+      background: #fff;
+      margin:0px 5px;
+      transition: .3s;
+    }
+    .on{
+      background:rgb(96, 46, 46) !important;
+      width:50px !important;
+      border-radius:10px !important;
+    }
+    .play_btn{
+      display: flex;
+      justify-content: center;
+      position: absolute;
+      right: 15px; bottom:8px;
+    }
+    i.fas{
+      font-size: 20px;
+      color: #fff;
+      margin-left: 8px;
+      cursor: pointer;
+    }
+  </style>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+   <script>
+    $(()=>{
+      let n = $('.con_btn li').index();
+              console.log(n);//0
+      $('.con_btn li').click(()=>{
+        n = $(this).index();
+        console.log(n);
+
+        let img_w = ($('.banner01 img').width()*n);
+        console.log(img_w);//0, 340
+
+        $('.banner01').animate({'left':img_w},500);
+
+        $('.con_btn li').removeClass('on');
+        $(this).addClass('on');
+
+      });
+      function autoSlide(n){
+        n = -(n*$('.banner01 img').width());
+        $('.banner01').animate({'left':n},500);
+      }
+      let Timer = setInterval(()=>{
+        if(n == 2){
+          n = 0;
+          $('.con_btn li').removeClass('on');
+          $('.con_btn li').eq(n).addClass('on');
+        }else{
+          n++;
+          $('.con_btn li').removeClass('on');
+          $('.con_btn li').eq(n).addClass('on');
+        }
+        autoSlide(n);
+      }, 3000);
+      
+      $('fas fa-play').click(()=>{
+        Timer = setInterval(autoSlide,3000);
+      });
+
+      $('.fa-pause').click(()=>{
+        if($(this).hasClass('fas fa-pause') == true){
+          clearInterval(Timer); 
+        }else{
+          Timer = setInterval('class')
+        }
+      });
+
+
+    });
+   </script>
+</head>
+<body>
+  <article class="b_wrap">
+    <ul class="banner01">
+      <li><a href="#" title=""><img src="./images/01-1.jpg" alt=""></a></li>
+      <li><a href="#" title=""><img src="./images/02-1.jpg" alt=""></a></li>
+      <li><a href="#" title=""><img src="./images/03-1.jpg" alt=""></a></li>
+    </ul>
+    <ul class="con_btn">
+      <li class="on">&nbsp;</li>
+      <li>&nbsp;</li>
+      <li>&nbsp;</li>
+    </ul>
+    <ul class="play_btn">
+      <li><i class="fas fa-play"></i></li>
+      <li><i class="fas fa-pause"></i></li>
+    </ul>
+  </article>
+</body>
+</html>

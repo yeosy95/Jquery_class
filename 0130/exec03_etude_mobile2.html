@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>에뛰드 모바일 웹 내비게이션2</title>
+  <link rel="stylesheet" href="./css/main2.css" type="text/css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" type="text/css">
+</head>
+<body>
+  <div id="wrap">
+    <header>
+      <h1>
+        <a href="./exec03_etude_mobile.html" title="상단로고">
+        <img src="./images/logo.png" alt="상단로고">
+        </a>
+      </h1>
+      <!-- 검색아이콘 -->
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <!-- 햄버거메뉴 -->
+      <div id="toggle">
+        <span>&nbsp;</span>
+        <span>&nbsp;</span>
+        <span>&nbsp;</span>
+      </div>
+    </header>
+
+    <!-- 글로벌 내비게이션 헤더 밖에 써도 문제는 없지만 지금과같은 구조는 따로 빼서 해주는게 좋음. 헤더옆에 내비가 배치해야해서  같은 박스에 묶으면 안됨. -->
+    <nav class="gnb">
+      <ul>
+        <li><a href="#" title="">menu01</a></li>
+        <li><a href="#" title="">menu02</a></li>
+        <li><a href="#" title="">menu03</a></li>
+        <li><a href="#" title="">menu04</a></li>
+        <li><a href="#" title="">menu05</a></li>
+        <li><a href="#" title="">menu06</a></li>
+      </ul>
+    </nav>
+      <article class="slide">
+        <!-- 슬라이드 3장(좌,우,,페이드인/아웃,상 하 슬라이드 중 선택) -->
+        <ul>
+          <li><a href="#" title="메인배너"><img src="./images/slide01_01.jpg" alt="메인배너"></a></li>
+          <li><a href="#" title="메인배너"><img src="./images/slide02_02.jpg" alt="메인배너"></a></li>
+          <li><a href="#" title="메인배너"><img src="./images/slide03_03.jpg" alt="메인배너"></a></li>
+        </ul>
+      </article>
+  
+
+    <footer>
+      <address>copyright2022&copy;에뛰드 하우스 allrights reserved.</address>
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script>
+      $(function(){
+        //1.토글버튼 변수
+        let t_btn = $('#toggle');
+        let t_n = 1;
+        let slide=$('.slide ul');
+        let img_w = $('.slide img').width(); //이미지 넓이 구하는 변수
+        let num = 1;
+
+        t_btn.click(()=>{
+          $(this).find('span').first().toggleClass('act01');
+          $(this).find('span').eq(1).toggleClass('act02');
+          $(this).find('span').last().toggleClass('act03');
+        
+          // 토글버튼 클릭시 wrap의 위치가 왼쪽으로부터 80%위치에 배치가 된다.
+          $('#wrap').toggleClass('wrap_pos');
+        
+          if(t_n==1){
+            $('body').css('overflow','hidden');
+            t_n = 0;
+          }else{
+            $('body').css('overflow','scroll');
+            t_n = 1;
+          }
+        });
+
+
+        //2.스크롤값이 0보다 크면
+        $(window).scroll(()=>{
+          let sPos = $(this).scrollTop(); //브라우저의 세로 스크롤값
+          // console.log(sPos);
+          if(sPos > 0){
+            $('#toggle').addClass('on');
+          }else{
+            $('#toggle').removeClass('on');
+          }
+        });
+        
+        // 자동슬라이드
+        let Timer = setInterval(moveLeft,3000);
+
+        function moveLeft(){
+          slide.animate({'margin-left':-img_w},500, ()=>{
+            $('.slide ul > li:first-child').insertAfter('.slide ul > li:last-child');
+            slide.css('margin-left',-img_w);
+            if(num == 3){
+              num = 1;
+            }else{
+              num++;
+            }
+          });
+        };
+      }); 
+    </script>
+  </div>
+</body>
+</html>

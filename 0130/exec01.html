@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>실습예제 - 닷홈 공지사항 페이지번호 목록구현</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" type="text/css">
+  <style>
+    *{
+      margin:0px;padding:0px;
+    }
+    ul,li,ol{list-style: none;}
+    a{text-decoration: none;}
+    .page{display: flex; margin: 20px 0px 0px 20px;}
+    .page li{
+      width:33px;height: 33px;
+      text-align: center;
+      line-height: 33px;
+      font-weight: bold;
+      border: solid 1px #ccc;
+      color:rgba(73, 109, 218, 0.945);
+    }
+    .ctrl_btn{
+      color:rgba(73, 109, 218, 0.945);
+    }
+    .on{
+      background: rgba(73, 109, 218, 0.945);
+      color:#fff;
+    }
+
+</style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  <script>
+    $(()=>{
+      $('.page li').click(()=>{
+        if($(this).hasClass('ctrl_btn') == false){
+          $(this).addClass('on').siblings().removeClass('on');
+          // $('.ctrl_btn').removeClass('on');
+          // return false;
+        // }else{
+        }
+      });
+        // $('.page li').not('.ctrl_btn').click(()=>{
+        //   $(this).addClass('on').siblings().removeClass('on');
+        // });        
+    });
+
+  </script>
+</head>
+<body>
+  <h3>실습예제 - 닷홈 공지사항 페이지번호 목록구현</h3>
+  <ul class="page">
+    <li class="ctrl_btn"><a><i class="fa-solid fa-angles-left"></i></a></li>
+    <li class="ctrl_btn"><a>&lt;</a></li>
+    <li><a>1</a></li>
+    <li><a>2</a></li>
+    <li><a>3</a></li>
+    <li><a>4</a></li>
+    <li><a>5</a></li>
+    <li class="ctrl_btn"><a>&gt;</a></li>
+    <li class="ctrl_btn"><a><i class="fa-solid fa-angles-right"></i></a></li>
+  </ul>
+
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>스타벅스 실습예제</title>
+  <style>
+    *{margin:0px; padding:0px;}
+    ol,ul,li{list-style: none;}
+    .wrap{
+      position: relative;
+    }
+    .wrap img{
+      width:100%;
+    }
+    .wrap > article > img{
+      position:absolute;
+      top:20px; left:60%;
+      width: 30%;
+      display: none;
+    }
+    article #cup1{
+      width: 10%;
+    }
+    article #cup2{
+      margin-top: 15%;
+      transform: translate(-50%, -55%);
+      width:14%;
+    }
+    article #cup3{
+      margin-top: 20%;
+      width: 22%;
+      transform: translateY(-50%);
+
+    }
+    #badge, #m{position: absolute;}
+    #badge{
+      right:20%;top:2%;
+      width:5%;
+    }
+    #m{
+      left: 10%;top:15%;
+      width:12%;
+    }
+    div{
+      position: absolute;
+      top:20%; left:37%;
+      display: flex;
+      width:80%;}
+    div > .txt1{
+      width:10%;height: 15%;
+    }
+    div > .txt2{
+      width:20%;height: 20%;
+    }
+    div > .txt3{
+      width:10%;height:10%;
+    }
+  </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script>
+      $(function(){
+          
+          $('#box1').delay(100).fadeIn();
+          $('#box2').delay(1100).fadeIn();
+          $('#box3').delay(2000).fadeIn();
+  
+      });
+    </script>
+</head>
+<body>
+  <h2>스타벅스 실습예제</h2>
+  <section class="wrap">
+    <img src="./exec02/images/bev_bg.jpg" alt="">
+    <img src="./exec02/images/m_18_emblem.png" alt="" id="m">
+    <article>
+      <div id="box1">
+        <img src="./exec02/images/bev1_txt.png" alt="" class="txt1">
+        <img src="./exec02/images/bev1_cup.png" id="cup1" alt="">
+      </div>
+      <div id="box2">
+        <img src="./exec02/images/bev2_txt.png" alt=""  class="txt2">
+        <img src="./exec02/images/bev2_cup.png" id="cup2" alt="">
+      </div>
+      <div id="box3">
+        <img src="./exec02/images/bev3_cup.png" id="cup3" alt="">
+        <img src="./exec02/images/bev3_txt.png" alt="" class="txt3">
+      </div>
+    </article>
+    <img src="./exec02/images/badge_main_autumn2.png" alt="" id="badge">
+  </section>
+
+</body>
+</html>

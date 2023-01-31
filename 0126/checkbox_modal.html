@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>jquery_DOM_modal_window(모달윈도) 띄우기</title>
+  <style>
+     /*    모달서식 */
+     .modal{
+          width:100%;height:100%;
+          position:fixed;
+          top:0px;left:0px;
+          background-color:rgba(0,0,0,.9);
+        }        
+        .popup{
+          position:relative; top:50%;left:50%;
+          transform:translate(-50%, -50%);
+          width:350px;height:350px;
+        }
+        .popup img{width:350px;}
+        .popup input{position: absolute;bottom:13px;}
+        .popup a{
+          text-decoration:none;
+          color:#fff;font-size:14px;
+          padding:6px 30px;
+          position:relative;
+          top:-40px;left:84px;
+        }
+        .popup label{
+          color:#fff;font-size:14px;
+          cursor:pointer;
+          position:relative;
+          top:-40px;left:26px;
+          z-index:10;
+        }
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  <script>
+    $(function(){
+      let modal = `
+        <div class="modal">
+          <div class="popup">
+            <img src="./images01/popup.jpg" alt="광고배너">
+            <input type="checkbox" id="ch">
+            <label for="ch">오늘 하루 열지 않음</label>
+            <a href="#" title="닫기">닫기</a>
+          <div>
+        </div>`;
+
+      $('body').append(modal);
+
+      $('.modal a').click(()=>{
+        $('.modal').fadeOut();
+      });
+
+    });
+  </script>
+</head>
+<body>
+  <h2>체크박스 보이는 모달창</h2>
+  <!-- 제이쿼리 쿠키 연결하기 -->
+  <script src="./script/jquery.cookie.js"></script>
+  <script>
+    $(()=>{
+
+      if($.cookie('popup')=='none'){
+        $('.modal').hide();
+      }
+      let ch = $('#ch');//체크박스 변수
+      
+      // 체크박스 클릭시 쿠키가 생성되고 그렇치 않으면 그냥 모달을 숨기는 내용
+      function closePop(){
+        if(ch.is(':checked')){
+          $.cookie('popup','none',{expires:1, path:'/'}); //쿠키를 생성
+        }
+        $('.modal').hide();
+      }
+
+      //닫기를 누르면 모달이 숨겨지도록한다.
+      $('.modal a').click(()=>{
+        closePop();
+      });
+    
+    });
+
+  </script>
+</body>
+</html>

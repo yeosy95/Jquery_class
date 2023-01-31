@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>실습예제 - 쿠팡팝업창(slideUp사용)</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  <style>
+    .popup *{margin:0px; padding:0px;}
+    .popup{
+      width: 100%;height: 100%;
+      position: relative;
+      left: 0px;top:0px;
+    }
+    .popup > .popup_con img{
+      display: block;
+      width:100%;height:70px;
+    }
+    .popup > .popup_con > p{
+      position: absolute;
+      right: 0px;top:0px;
+      line-height: 70px;
+      background: #fff;
+      text-align: center;
+      height: 100%; width: 70px;
+      box-sizing: border-box;
+    }
+    .popup input[type=button]{
+      color:#333; background: none;
+      border:none;
+      width:30px;
+      font-size: 1.7rem;
+      width:100%; height: 100%;
+    }
+  </style>
+  <script>
+    $(document).ready(function(){
+      let btn = $('#close_btn');
+
+      btn.click(function(event){
+        event.preventDefault();
+        $('.popup').slideUp();
+      });
+
+    });
+  </script>
+</head>
+<body>
+  <header>
+    <div class="popup">
+      <div class="popup_con">
+        <img src="./images/coupang_02.jpg" alt="쿠팡광고">
+        <p><input type="button" value="X" id="close_btn"></p>
+      </div>
+    </div>
+  </header>
+  
+</body>
+</html>
