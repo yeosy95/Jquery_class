@@ -12,13 +12,18 @@
     $(()=>{
       let q = $('.faq > dt');
 
-      // q.first().next().show();
-      q.first().find('i.fa-solid').toggleClass('act01');
+       //답변이 보이도록 한다.
+      //  q.first().next().show();
 
+      // 첫번째 질문에 있는 화살표 방향 반대로
+      q.first().find('i.fa-angle-down').addClass('act').show('dd');
+      
       q.click(function(){
-        $(this).siblings().toggleClass('act01');
-        $(this).find('i.fa-solid').parent().siblings().find('i.fa-solid');
+        $(this).find('i.fa-angle-down').addClass('act').parent().siblings().find('i.fa-angle-down').removeClass('act');
+        // $(this).find('i.fa-angle-down').toggleClass('act');//화살표방향
         $(this).next().show().siblings('dd').hide();
+
+
       });
 
     });
@@ -32,6 +37,9 @@
       <input type="search" id="search" placeholder="검색어를 입력해 주세요.">
     </fieldset>
     <h2>자주하는 질문 top10</h2>
+
+
+    
     <dl class="faq">
       <dt><span>1</span>반품 신청은 어떻게 하나요?<i class="fa-solid fa-angle-down"></i></dt>
       <dd><img src="./img/0509_cs_return_service.jpg" alt="반품신청"></dd>

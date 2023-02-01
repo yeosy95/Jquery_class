@@ -24,18 +24,18 @@
 
       // 사용자가 선택한 질문에 해당하는 서식을 적용
       q.click(function(){
-        // $(this).toggleClass('act01');// 제목서식적용
-        // $(this).find('i.fa-solid').toggleClass('act02');//화살표방향
-        // $(this).next().slideToggle();//답변나오게하기
+        $(this).toggleClass('act01');// 제목서식적용
+        $(this).find('i.fa-solid').toggleClass('act02');//화살표방향
+        $(this).next().slideToggle();//답변나오게하기
 
-        $(this).addClass('act01').siblings().removeClass('act01');
+        // $(this).addClass('act01').siblings().removeClass('act01');
         
-        //내가선택한건 dt지만 서식제거는i기떄문에 부모의 형제들을 선택한다음에 그안에있는 자손을 다시 선택해서 서식을 제거
-        //선택하지 않은걸 다시 돌리는방법
-        $(this).find('i.fa-solid').addClass('act02').parent().siblings().find('i.fa-solid').removeClass('act02');
-        //스타벅스는 toggleClass로 한것.(자기자신만 바꾸는것)
+        // //내가선택한건 dt지만 서식제거는i기떄문에 부모의 형제들을 선택한다음에 그안에있는 자손을 다시 선택해서 서식을 제거
+        // //선택하지 않은걸 다시 돌리는방법
+        // $(this).find('i.fa-solid').addClass('act02').parent().siblings().find('i.fa-solid').removeClass('act02');
+        // //스타벅스는 toggleClass로 한것.(자기자신만 바꾸는것)
 
-        $(this).next().slideDown().siblings('dd').slideUp();
+        // $(this).next().slideDown().siblings('dd').slideUp();
       });
     });
   </script>

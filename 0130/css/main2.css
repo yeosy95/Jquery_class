@@ -2,7 +2,7 @@
 *{margin:0px;padding:0px;   }
 ul,li,ol{list-style: none;}
 body{
-  overflow-x: hidden;
+  overflow-x: hidden!important;
   font-family: "맑은 고딕",arial,'sans-serif';
   color:#333;
 }
@@ -91,18 +91,22 @@ i.fa-magnifying-glass{
 
 .slide{
   position:relative;
-  width:100%; height: 700px;
+  width:100%; 
 }
 .slide ul{
   overflow: hidden;
   display: flex;
-  position:absolute;
+  position:relative;
+  width:156.5%;
+}
+.slide > li{
   width:420px;
 }
-.slide > li{width:300%;}
 .slide li > img{width:100%;}
 
 footer{
+  position: relative;
+  bottom: 0px;
   background:#333;
   color:#fff;
   text-align: center;

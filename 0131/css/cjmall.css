@@ -54,6 +54,9 @@ i.fa-angle-down{
   cursor: pointer;
   
 }
+.faq > dd{display: none;}
 
-section > .faq > dd img{display: none;}
-.act01{transform:rotate(180deg);}
+
+/* 화살표방향 */
+.act{transform:rotate(180deg);}
+.act02{display: block;}
