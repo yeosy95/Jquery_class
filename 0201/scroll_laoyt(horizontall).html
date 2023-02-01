@@ -5,13 +5,111 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>원페이지 - 가로스크롤 레이아웃</title>
+  <link rel="stylesheet" href="./css/layout.css" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  <script>
+    $(function(){
+      $(window).scroll(function(){
+        let sPos = $(this).scrollLeft();
+        $('.status').html(sPos);//화면에 출력하기
+      }); 
+
+
+      let mnu = $('.gnb ul li a');      
+
+      mnu.click(function(){
+
+        mnu.removeClass('on');
+        $(this).addClass('on');
+
+        //선택한 a요소의 href속성값을 출력해본다.
+        let id_name = $(this).attr('href');
+        console.log(id_name);//car1,car2,car3,car4
+
+        //car1,car2,car3,car4의 왼쪽에서 떨어진 값을 출력
+        let secOffset = $(id_name).offset().left;
+        console.log(secOffset);
+
+        //각 해당하는 영역을 왼쪽끝에 애니메이션하면서 맞춤
+        $('html, body').animate({scrollLeft:secOffset},500,'easeOutQuint');
+
+        return false;
+      });
+      
+
+
+      // 마우스 휠이벤트를 사용하여 가로스크롤 되게하기
+      $('main section').each(function(){
+         // 개별적으로 Wheel 이벤트 적용
+        $(this).on('mousewheel',function(e){
+          var delta = 0; //초기값
+          var moveLeft = null; //마우스올릴때 null값
+          var boxMax = $("main section").length - 1;
+          var winEvent = "";
+          // console.log(boxMax);
+          mnu.removeClass('on');
+          $(this).addClass('on');
+          
+          if(!winEvent) { //만약에 이벤트가 발생하지 않는다면(휠돌리지 않는다면)
+            winEvent = window.event; //이벤트는 없다
+          }
+          if(winEvent.wheelDelta) { //만약에 이벤트에서 휠데이터값이 있다면
+            delta = winEvent.wheelDelta / 120; //데이터값을 저장
+            if(window.opera) {
+                delta = -delta;
+            }
+          }          
+          else if(winEvent.detail) { //그렇지 않으면
+             delta = -winEvent.detail / 3;  //나누기3을하겠다
+          }
+                
+          // 마우스휠을 위에서 아래로 이동(처음에서 다음박스로 이동)
+          if(delta < 0) {
+              // 마지막 BOX 보다 순서값이 작은 경우에 실행
+              if($(this).index() < boxMax) {
+                  // console.log("▼");
+                  if($(this).next() != undefined) {
+                      moveLeft =$(this).next().offset().left;
+                  }
+              }
+              // 마지막 section보다 더 오른쪽으로 이동하려고 하는 경우 알림창 출력
+              else {
+                  alert("마지막 페이지 입니다.");
+                  return false;
+              }
+          }
+          // 마우스휠을 아래에서 위로 이동( 뒤에서 앞으로 이동)
+          else {
+              // 첫번째 section보다 순서값이 큰 경우에 실행
+              if($(this).index() > 0) {
+                  console.log("▲");
+                  if($(this).prev() != undefined) {
+                      moveLeft =$(this).prev().offset().left;
+                  }
+              }
+              // 첫번째 section보다 더 위로 이동하려고 하는 경우 알림창 출력
+              else {
+                  alert("첫번째 페이지 입니다.");
+                  return false;
+              }
+          }
+               //화면 이동 0.3초(300)
+              $("html,body").stop().animate({scrollLeft : moveLeft + "px"}, 300);
+          });
+        });
+      
+
+    });
+  </script>
 </head>
 <body>
+  <span class="status"></span>
   <!-- 헤더영역 -->
   <header>
     <nav class="gnb">
       <ul>
-        <li><a href="#car1" title="MiniCooper">MiniCooper</a></li>
+        <li><a class="on" href="#car1" title="MiniCooper">MiniCooper</a></li>
         <li><a href="#car2" title="Tesla">Tesla</a></li>
         <li><a href="#car3" title="Lamborghini">Lamborghini</a></li>
         <li><a href="#car4" title="Porsche">Porsche</a></li>
@@ -23,25 +121,25 @@
   <main id="cont">
     <section id="car1">
       <h2>Mini Cooper</h2>
-      <p>자동차 소개 내용을 검색하여 내용 정리함.</p>
+      <p>MINI 특유의 민첩함과 핸들링 그리고 넓어진 공간은 더 많은 이들을 함께 할 수 있게 합니다. 낮은 무게 중심과 컴팩트한 디자인으로 좁은 길과 주차 공간에 적합하며, 궁극의 즐거움을 주는 5-Door Hatch는 MINI가 가진 매력 포인트를 모두 갖췄습니다.</p>
     </section>
 
     <section id="car2">
       <h2>Tesla</h2>
-      <p>자동차 소개 내용을 검색하여 내용 정리함.</p>
+      <p>테슬라는 미국 택사스주 오스틴에 기반을 둔 전기자동차 회사이다. 2003년, 마틴 에버하드(CEO)와 마크 타페닝(CFO)이 창업했다. 2004년 페이팔의 창업자이던 일론 머스크가 투자자로 참여했고 몇 년 후에 일론 머스크가 최대주주로 회장이 되었다.</p>
     </section>
     
     <section id="car3">
       <h2>Lamborghini</h2>
-      <p>자동차 소개 내용을 검색하여 내용 정리함.</p>
+      <p>람보르기니는 슈퍼카 및 스포츠카를 만드는 이탈리아의 자동차 제조 업체이다. 본사는 이탈리아 에밀리아로마냐주 볼로냐에 있다. 현재 폭스바겐 산하 고급 브랜드인 아우디의 자회사로 되어 있다.</p>
     </section>
     
     <section id="car4">
       <h2>Porsche</h2>
-      <p>자동차 소개 내용을 검색하여 내용 정리함.</p>
+      <p>스포츠 카의 대명사 같은 브랜드이며, "일반적인 차들은 시간이 흐르면 폐차장으로 가지만 포르쉐는 박물관으로 간다"라는 말이 있을 정도로 기계적 완성도가 뛰어나다는 평가를 받고있다. 또한 "데일리 카처럼 탈 수 있다"는 장점이 있다. 최근엔 폭스바겐 아우디와의 기술 협업도 많이 하기 때문에 디젤 엔진이라든지[6] 카이엔이나 파나메라 같은 새로운 모델 개발도 가능할 수 있었다.</p>
     </section>
     
-    <section id="car5">
+    <!-- <section id="car5">
       <h2></h2>
       <p>자동차 소개 내용을 검색하여 내용 정리함.</p>
     </section>
@@ -49,16 +147,11 @@
     <section id="car6">
       <h2></h2>
       <p>자동차 소개 내용을 검색하여 내용 정리함.</p>
-    </section>
-    
-    <section id="ar7"c>
-      <h2></h2>
-      <p>자동차 소개 내용을 검색하여 내용 정리함.</p>
-    </section>
+    </section> -->
   </main>
 
   <footer>
-
+    <address>Copyright&copy;2023 가로스크롤 레이아웃 allrights reserved.</address>
   </footer>
 </body>
 </html>
