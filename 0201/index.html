@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>제이쿼리 문서객체 조작-scroll layout</title>
+  <link rel="stylesheet" href="./css/scroll_layout.css" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  <script>
+    $(()=>{
+      //1.내비게이션 메뉴 클릭시 해당하는 인덱스 값 구하기
+      let mnu = $('header .gnb > ul > li');
+      
+
+      mnu.click(function(){
+        let n = $(this).index();
+        console.log(n);
+        $('html,body').animate({scrollTop:$('section').eq(n).offset().top-60},500);
+        return false;
+      });
+      // 화면스크롤 출력하기 
+      $(window).scroll(()=>{
+        let sPos = $(this).scrollTop();
+        console.log(sPos);
+        /*features : 300~900
+          overview: 1100~1800
+          pricing: 2000~2700
+          Team: 2900~3600
+          Blog :3800~4500
+          Contact:4700 ~ 5400
+        */
+
+        //만약에 아래 해당하는 조건에 범위에 맞는 a요소에 서식 적용하기
+        
+        // if(sPos >= 300 && sPos <=900 ){
+        //   $('.gnb li:nth-child(2) a').addClass('t_act');
+        // }else if(sPos >= 1100 && sPos <= 1800){
+        //   $('.gnb li:nth-child(3) a').addClass('t_act');
+        // }else if(sPos >= 2000 && sPos <= 2700){
+        //   $('.gnb li:nth-child(4) a').addClass('t_act');
+        // }else if(sPos >= 2900 && sPos <= 3600){
+        //   $('.gnb li:nth-child(5) a').addClass('t_act');
+        // }else if(sPos >= 3800 && sPos <= 4500){
+        //   $('.gnb li:nth-child(6) a').addClass('t_act');
+        // }else if(sPos >= 4700 && sPos <= 5600){
+        //   $('.gnb li:last-child a').addClass('t_act');
+        // }else{
+        //   $('.gnb li a').removeClass('t_act');
+        // }
+
+
+        // offset메서드로 각각 해당하는 박스의 위치값에 따른 서식적용하기
+        $('main section').each(function(i){//each함수 : 기능을 각각 넣어주겠다
+          let top = $(this).offset().top-800;
+          if(sPos >= top){//만약에 spos의 값이 top보다 크면
+            $('.gnb li a').removeClass('t_act');//기존 서식을 제거
+            $('.gnb li').eq(i).find('a').addClass('t_act');//해당메뉴에 서식적용.
+          }
+        });
+
+      });
+    });
+  </script>
+</head>
+<body>
+  <!-- 상단헤더영역 -->
+  <header>
+    <h1><a href="index.html" title="메인페이지로 바로가기">상단로고</a></h1>
+    <nav class="gnb">
+      <ul>
+        <li><a href="#" title="home">home</a></li>
+        <li><a href="#" title="features" class="t_act">features</a></li>
+        <li><a href="#" title="overview">overview</a></li>
+        <li><a href="#" title="pricing">pricing</a></li>
+        <li><a href="#" title="team">team</a></li>
+        <li><a href="#" title="blog">blog</a></li>
+        <li><a href="#" title="contact">contact</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <!-- 메인콘텐츠영역 -->
+  <main>
+    <section class="sec01">
+      <h2>메인 비쥬얼 콘텐츠</h2>
+    </section>
+
+    <section class="sec02">
+      <h2>features</h2>
+    </section>
+    
+    <section class="sec03">
+      <h2>overview</h2>
+    </section>
+    
+    <section class="sec04">
+      <h2>pricing</h2>
+    </section>
+    
+    <section class="sec05">
+      <h2>team</h2>
+    </section>
+    
+    <section class="sec06">
+      <h2>blog</h2>
+    </section>
+
+    <section class="sec07">
+      <h2>contact</h2>
+    </section>
+  </main>
+  <!-- 푸터영역 -->
+  <footer>
+    <address>copyright&copy;2020 000 allrights reserved.</address>
+  </footer>
+</body>
+</html>
