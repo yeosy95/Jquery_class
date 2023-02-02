@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>실습예제 - 탭 메뉴 응용(이미지활용)</title>
+  <style>
+     ul,li{list-style: none;}
+    a{text-decoration: none;color: #333;}
+    body{
+      font-family: "맑은 고딕",arial,sans-serif;
+      font-size: 12px;
+      color:#333;
+    }
+    .tab_con *{margin:0px; padding:0px;}
+    .tab_con{
+      width:1040px;height: 700px;
+      border:3px solid #000;
+      margin: 0 auto;
+      padding-bottom: 20px;
+      position: relative;
+    }
+    .tab_con > h2{
+      line-height: 46px;
+      font-size: 26px;
+    }
+    .tab_con > ul{display: flex;}
+    .tab_con > ul > li{
+      width:20%;
+      text-align: center;
+    }
+
+    .tab_con > ul > li:nth-of-type(2){padding-top: 10px;transform: translateY(-10px);}
+    .tab_con > ul > li:last-of-type img{width:60px;}
+    .tab_con > ul > li a{
+      padding-top: 15px;
+      font-size: 16px;
+      font-weight: bold;
+      display: block; line-height: 30px;
+    }
+    .con{
+      width: 1040px;height: 620px;
+      position: absolute;
+      bottom: 0px; left: 0px;
+    }
+    /* .c01{background-image: url('./img/1.jpg');} */
+    /* .c02{background-image: url('./img/2.jpg');} */
+    /* .c03{background-image: url('./img/3.jpg');} */
+    /* .c04{background-image: url('./img/4.jpg');} */
+    /* .c05{background-image: url('./img/5.jpg');} */
+
+    /* 부정선택자 해당하는 클래스가 존재하지 않는 요소를 찾는다. */
+    div:not(.c01){display: none;}
+
+    .on{
+      background: rgb(255, 103, 1);
+      color: #fff;
+    }
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  <script>
+    $(function(){
+      //1.변수선언
+      let t_mnu = $('.tab_con li');
+
+      t_mnu.click(function(){
+        let src  = $(this).find('img').attr('src');
+        
+        src=src.replace('_off','_on');
+        console.log(src);
+        
+        $(this).find('img').attr('src',src);
+        $(this).next().show().parent().siblings().find('div').hide();
+
+        //a요소에 배경색 적용
+        $(this).find('a').addClass('on').parent().siblings().find('a').removeClass('on');
+
+        let n = $(this).index();
+        t_mnu.each(function(i){//li태그에 각각 기능을 삽입한다.
+
+          $(this).find('img').attr('src',$(this).find('img').attr('src').replace('_off','_on'));
+          
+          if(n != i){//만약에 선택한 요소의 인덱스번호가 아니라면 아래 내용을 실행하고
+            $(this).find('img').attr('src',$(this).find('img').attr('src').replace('_on','_off'));
+          }
+        });
+
+        return false;
+      });
+    });
+  </script>
+</head>
+<body>
+  <article class="tab_con">
+    <ul>
+      <li>
+          <a href="#" title="테마여행"  class="on">
+            <img src="./img/ico_theme_zone_1_on.png" alt="테마여행">
+            <br>
+            테마여행
+          </a>
+        <div class="con c01">
+          <img src="./img/01.jpg" alt="테마여행">
+        </div>
+      </li>
+      <li>
+          <a href="#" title="추천일정">
+            <img src="./img/ico_theme_zone_2_off.png" alt="추천일정">
+            <br>
+            추천일정
+          </a>
+
+        <div class="con c02">
+          <img src="./img/02.jpg" alt="추천일정">
+        </div>
+      </li>
+      <li>
+          <a href="#" title="스크린속 제주">
+            <img src="./img/ico_theme_zone_3_off.png" alt="스크린속 제주">
+            <br>
+            스크린속 제주
+          </a>
+        <div class="con c03">
+          <img src="./img/03.jpg" alt="스크린속 제주">
+        </div>
+      </li>
+      <li>
+          <a href="#" title="교통정보">
+            <img src="./img/ico_theme_zone_4_off.png" alt="교통정보">
+            <br>
+            교통정보
+          </a>
+        <div class="con c04">
+          <img src="./img/04.jpg" alt="교통정보">
+        </div>
+      </li>
+      <li>
+          <a href="#" title="안전,안심관광 가이드">
+            <img src="./img/ico_theme_zone_5_off.png" alt="안전,안심관광 가이드">
+            <br>
+           안전&dot;안심관광 가이드
+          </a>
+        <div class="con c05">
+          <img src="./img/05.jpg" alt="안전,안심관광 가이드">
+        </div>
+      </li>
+    </ul>
+
+  </article>
+</body>
+</html>
