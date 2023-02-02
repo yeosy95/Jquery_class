@@ -40,7 +40,7 @@
 
 
       // 마우스 휠이벤트를 사용하여 가로스크롤 되게하기
-      $('main section').each(function(){
+      $('main section').each(function(i){
          // 개별적으로 Wheel 이벤트 적용
         $(this).on('mousewheel',function(e){
           var delta = 0; //초기값
@@ -48,8 +48,6 @@
           var boxMax = $("main section").length - 1;
           var winEvent = "";
           // console.log(boxMax);
-          mnu.removeClass('on');
-          $(this).addClass('on');
           
           if(!winEvent) { //만약에 이벤트가 발생하지 않는다면(휠돌리지 않는다면)
             winEvent = window.event; //이벤트는 없다
@@ -64,8 +62,11 @@
              delta = -winEvent.detail / 3;  //나누기3을하겠다
           }
                 
-          // 마우스휠을 위에서 아래로 이동(처음에서 다음박스로 이동)
+          // 마우스휠을 위에서 아래로 이동(처음에서 다음박스로 이동(왼->오))
           if(delta < 0) {
+            //휠 동작시 내비게이션 서식적용
+              mnu.eq(i).removeClass('on');
+              mnu.eq(i+1).addClass('on');
               // 마지막 BOX 보다 순서값이 작은 경우에 실행
               if($(this).index() < boxMax) {
                   // console.log("▼");
@@ -83,6 +84,8 @@
           else {
               // 첫번째 section보다 순서값이 큰 경우에 실행
               if($(this).index() > 0) {
+                mnu.eq(i-1).addClass('on');
+                mnu.eq(i).removeClass('on');//스크롤 올릴시(이동:오->왼) 메뉴서식 제거
                   console.log("▲");
                   if($(this).prev() != undefined) {
                       moveLeft =$(this).prev().offset().left;
